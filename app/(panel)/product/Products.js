@@ -33,15 +33,12 @@ const Products = () => {
         >
           <div className="rounded-lg p-4">
             <div className="flex right:0">
-              <Input
+              <input
+                type="search"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    keywordFunc();
-                  }
-                }}
-                placeholder="Basic usage"
+                className="font-bold flex-1 px-8 bg-slate-100 py-4 rounded-xl"
+                placeholder="Search"
               />
             </div>
             <motion.div
