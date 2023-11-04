@@ -4,50 +4,73 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/categorySlice";
 import { motion } from "framer-motion";
 import { FaChevronRight } from "react-icons/fa";
-const Categories = ({ setCat }) => {
+import { BiDuplicate } from "react-icons/bi";
+const Categories = ({ setCat, setKeyword }) => {
   const dispatch = useDispatch();
   const category = useSelector((state) => state.category.products);
-
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategoryId(categoryId);
+    setCat(categoryId);
+  };
   useEffect(() => {
     dispatch(getCategory());
   }, [dispatch]);
-
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="px-4"
-    >
-      <div className=" rounded-lg border shadow-md bg-white px-2 py-2 sm:px-6">
-        <span className="flex items-center justify-center py-1 mt-2 font-bold border-b-2">
-          Kategoriler
-        </span>
-        <div className="p-2 font-bold whitespace-nowrap">
-          <h2
-            onClick={() => setCat("")}
-            className="flex justify-between flex-1 items-center hover:bg-gray-200 cursor-pointer truncate px-6 bg-gray-100 ease-in-out transition-all rounded-full py-2"
-          >
-            Tümü
-            <span>
-              <FaChevronRight color="red" />
-            </span>
-          </h2>
-        </div>
-        {category?.category?.map((item) => (
-          <div key={item._id} className="p-2 font-bold whitespace-nowrap">
-            <h2
-              onClick={() => setCat(item._id)}
-              className="flex justify-between flex-1 items-center hover:bg-gray-200 cursor-pointer truncate px-6 bg-gray-100 ease-in-out transition-all rounded-full py-2"
-            >
-              {item.name}
-              <span>
-                <FaChevronRight color="red" />
+    <div className="relative">
+      <div className="sticky top-0">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="grid md:grid-cols-1 bg-white "
+        >
+          <div className="shadow-md rounded-xl px-8 py-4 ">
+            <div className="flex justify-between items-center mt-4 gap-4 ">
+              <span className="font-bold font-mono text-xl border-b-2">
+                Kategoriler
               </span>
-            </h2>
+              <input
+                onChange={(e) => setKeyword(e.target.value)}
+                type="search"
+                className="w-96 px-8 bg-slate-100 py-4 rounded-xl"
+                placeholder="Yemek Ara"
+              />
+              <span className="cursor-pointer font-bold font-mono text-xl border-r-2 px-2 border-b-2">
+                Tümünü Göster
+              </span>
+            </div>
+            <div className="flex flex-row items-center gap-4 py-4 ">
+              <span
+                onClick={() => handleCategoryClick("")}
+                className="font-bold cursor-pointer font-mono border-b-2 border-red-600 flex flex-row gap-2 p-2"
+              >
+                <BiDuplicate size={25} />
+                Tümü
+              </span>
+              {category?.category?.map((item) => (
+                <div
+                  key={item._id}
+                  className="p-2 font-bold whitespace-nowrap "
+                >
+                  <span
+                    onClick={() =>
+                      handleCategoryClick(item._id ? item._id : "")
+                    }
+                    className={`cursor-pointer font-bold ${
+                      item._id === selectedCategoryId
+                        ? "border-b-2 border-red-600 transition-all ease-in-out"
+                        : ""
+                    } gap-2 p-2`}
+                  >
+                    {item.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
+        </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

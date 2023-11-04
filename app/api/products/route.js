@@ -8,7 +8,9 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get("category");
     const search = searchParams.get("search");
-    const query = {};
+
+    let query = {};
+
     if (search) {
       query.name = new RegExp(search, "i");
     }

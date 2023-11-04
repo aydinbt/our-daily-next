@@ -1,66 +1,47 @@
 "use client";
-// import CardHome from "../cart/CardHome";
-import { Input } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import ProductCard from "../../components/GetProducts/Product_Card";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/productSlice";
-import { useEffect, useState } from "react";
-import Categories from "../category/Categories";
-import { Skeleton } from "antd";
+import { useEffect } from "react";
 
 const Products = () => {
   const dispatch = useDispatch();
-  const { products, loading } = useSelector((state) => state.products);
-  const [cat, setCat] = useState("");
-  const [keyword, setKeyword] = useState("");
+  const { products } = useSelector((state) => state.products);
   useEffect(() => {
-    dispatch(getProducts({ cat, keyword }));
-  }, [dispatch, cat, keyword]);
-
+    dispatch(getProducts());
+  }, [dispatch]);
   return (
     <>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-2"
+        className="grid grid-cols-1 md:grid-cols-2  gap-2   mt-6"
       >
-        <Categories setCat={setCat} />
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          className="md:col-span-2"
+          className="md:col-span-2 shadow-md rounded-3xl bg-gray-50"
         >
-          <div className="rounded-lg p-4">
-            <div className="flex right:0">
-              <input
-                type="search"
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
-                className="font-bold flex-1 px-8 bg-slate-100 py-4 rounded-xl"
-                placeholder="Search"
-              />
-            </div>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1, transition: { duration: 0.5 } },
-              }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4  p-4"
-            >
-              {products?.productFilter?.map((item) => (
-                <motion.div
-                  key={item._id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  <ProductCard product={item} />
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { duration: 0.5 } },
+            }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4   p-4 mt-6"
+          >
+            {products?.productFilter?.map((item) => (
+              <motion.div
+                key={item._id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <ProductCard product={item} />
+              </motion.div>
+            ))}
+          </motion.div>
         </motion.div>
       </motion.div>
     </>
