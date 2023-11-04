@@ -21,7 +21,12 @@ import {
 } from "@chakra-ui/react";
 import { GrHistory, GrCircleInformation } from "react-icons/gr";
 import { HiLocationMarker, HiOutlineLogout } from "react-icons/hi";
-import { BiMessageEdit, BiSolidMoon } from "react-icons/bi";
+import {
+  BiMessageEdit,
+  BiMessageSquareDetail,
+  BiSolidMoon,
+  BiSolidTimer,
+} from "react-icons/bi";
 import { TbBasketHeart } from "react-icons/tb";
 import { MdAccountCircle } from "react-icons/md";
 import { Badge, Drawer, Space } from "antd";
@@ -59,7 +64,7 @@ const Header = () => {
     setOpen(false);
   };
   const cartItems = useSelector((state) => state.cart.items);
-
+  console.log(cartItems);
   return (
     <nav className="sticky top-0 z-10 ">
       <div className="container mx-auto px-4 py-4 rounded-xl shadow-lg bg-white">
@@ -206,10 +211,7 @@ const Header = () => {
           }
         >
           <motion.div initial="hidden" animate="visible" className="px-4">
-            <div className="space-y-3 rounded-lg border shadow-md bg-white px-2 py-4 sm:px-6">
-              <div className="flex flex-row items-center justify-between">
-                <p className="text-xl font-medium">Sepetim</p>
-              </div>
+            <div className="space-y-3 rounded-lg  shadow-md bg-white px-2 py-4 sm:px-6">
               {cartItems.length > 0 ? (
                 cartItems?.map((state, i) => (
                   <div key={i}>
@@ -218,9 +220,13 @@ const Header = () => {
                         <span className="font-semibold text-sm">
                           {state.name}
                         </span>
-                        <span className="float-right text-sm text-gray-400">
-                          {state.description}
-                        </span>
+                        {state?.option.map((opt, i) => {
+                          return (
+                            <span className="float-right text-sm text-gray-400">
+                              {opt}
+                            </span>
+                          );
+                        })}
 
                         <div className="flex justify-between items-center">
                           <p className="text-sm font-bold">
@@ -265,13 +271,13 @@ const Header = () => {
                     Ara Toplam
                   </p>
                   <p className="font-semibold text-gray-900">
-                    ₺{total ? total : 0}
+                    ₺{total ? total.toFixed(2) : 0}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium text-gray-900">İndirim</p>
                   <p className="font-semibold line-through text-gray-900">
-                    ₺{total ? total : 0}
+                    ₺{total ? total.toFixed(2) : 0}
                   </p>
                 </div>
               </div>
@@ -280,7 +286,7 @@ const Header = () => {
                   Toplam Tutar
                 </p>
                 <p className="text-2xl font-semibold text-gray-900">
-                  ₺{total ? total : 0}
+                  ₺{total ? total.toFixed(2) : 0}
                 </p>
               </div>
               <Divider />
