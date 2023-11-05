@@ -6,7 +6,7 @@ import { authOptions } from "../../api/auth/[...nextauth]/authOptions";
 
 const Register = async () => {
   const session = await getServerSession(authOptions);
-  if (session) redirect("/");
+  if (session?.user) redirect("/");
   return <RegisterForm />;
 };
 

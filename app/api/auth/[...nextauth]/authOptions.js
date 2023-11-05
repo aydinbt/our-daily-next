@@ -55,6 +55,7 @@ export const authOptions = {
           fullName: user.fullName,
           email: user.email,
           phoneNumber: user.phoneNumber,
+          role: user.role,
         };
       }
       if (trigger === "update" && session?.name) {
@@ -71,6 +72,7 @@ export const authOptions = {
           id: token.id,
           fullName: token.fullName,
           phoneNumber: token.phoneNumber,
+          role: token.role,
         },
       };
     },
