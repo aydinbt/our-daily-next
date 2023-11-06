@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
       <div
         key={product._id}
         onClick={() => setModal2Open(true)}
-        className="py-4 px-8 bg-white shadow-lg rounded-lg mt-14 cursor-pointer  hover:bg-slate-100  hover:translate-y-1 transition duration-150 ease-in-out"
+        className="py-4 px-8 bg-white shadow-lg rounded-lg mt-6 mb-6 cursor-pointer  hover:bg-slate-100  hover:translate-y-1 transition duration-150 ease-in-out"
       >
         <div className="flex justify-center md:justify-end -mt-16">
           <img

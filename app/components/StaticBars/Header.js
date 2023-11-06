@@ -24,6 +24,7 @@ import { HiLocationMarker, HiOutlineLogout } from "react-icons/hi";
 import {
   BiMessageEdit,
   BiMessageSquareDetail,
+  BiSolidDashboard,
   BiSolidMoon,
   BiSolidTimer,
 } from "react-icons/bi";
@@ -64,7 +65,6 @@ const Header = () => {
     setOpen(false);
   };
   const cartItems = useSelector((state) => state.cart.items);
-  console.log(cartItems);
   return (
     <nav className="sticky top-0 z-10 ">
       <div className="container mx-auto px-4 py-4 rounded-xl shadow-lg bg-white">
@@ -98,6 +98,16 @@ const Header = () => {
                             Hesap Bilgileri
                           </MenuItem>
                         </Link>
+                        {session?.user?.role !== "admin" ? (
+                          <Link href="/admin/dashboard">
+                            <MenuItem icon={<BiSolidDashboard size={20} color="red"/>}>
+                              Dashboard
+                            </MenuItem>
+                          </Link>
+                        ) : (
+                          ""
+                        )}
+
                         <Link href="/order-tracking/all">
                           <MenuItem icon={<GrHistory size={20} />}>
                             Siparişlerim

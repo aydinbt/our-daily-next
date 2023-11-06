@@ -1,65 +1,81 @@
 "use client";
+import { getCategory } from "@/app/redux/categorySlice";
+import { getProducts } from "@/app/redux/productSlice";
+import { getUser } from "@/app/redux/userSlice";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import React, { useState } from "react";
-import { BiDuplicate } from "react-icons/bi";
+
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Dashboard = () => {
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-  const handleCategoryClick = (item) => {
-    setSelectedCategoryId(item.id);
-  };
+  const dispath = useDispatch();
+  const user = useSelector((state) => state.user.products);
+  const { products } = useSelector((state) => state.products);
+  const category = useSelector((state) => state.category.products);
 
+  useEffect(() => {
+    dispath(getUser());
+    dispath(getProducts());
+    dispath(getCategory());
+  }, [dispath]);
   //   if (session.user.role !== "admin") redirect("/");
   const adminMenu = [
     {
       id: 1,
-      name: "Siparişler",
+      name: "Siparişler 🔥",
       path: "/admin/dashboard/order_tracking",
+      stat: "",
     },
     {
       id: 2,
-      name: "Ürünler",
+      name: "Ürünler 🚀",
       path: "/admin/dashboard/order_products",
+      stat: products?.productFilter?.length,
     },
     {
       id: 3,
-      name: "Kategoriler",
+      name: "Kategoriler 😍",
       path: "/admin/dashboard/order_categories",
+      stat: category?.category?.length,
     },
     {
       id: 4,
-      name: "Kuponlar",
+      name: "Kuponlar 👑",
       path: "/admin/dashboard/order_coupons",
+      stat: "",
     },
     {
       id: 5,
-      name: "Kullanıcılar",
+      name: "Kullanıcılar 🫶",
       path: "/admin/dashboard/users",
+      stat: user?.user?.length,
     },
   ];
   return (
-    <div className="container mx-auto mt-2">
-      <div className="flex flex-row items-center gap-4 py-4 ">
-        {adminMenu.map((item) => {
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="container mx-auto mt-2 shadow-md rounded-lg px-4 py-4"
+    >
+      <div className="grid md:grid-cols-3 py-4 px-4 mb-4 gap-8">
+        {adminMenu.map((item, i) => {
           return (
             <Link href={item.path}>
-              <span
-                key={item.id}
-                onClick={() => handleCategoryClick(item)}
-                className={`cursor-pointer font-bold ${
-                  item.id === selectedCategoryId
-                    ? "border-b-2 border-red-600 transition-all ease-in-out"
-                    : ""
-                } gap-2 p-2`}
+              <div
+                key={i}
+                className=" cursor-pointer flex flex-col items-center justify-center hover:bg-slate-100 hover:transition-all ease-in-out shadow-lg rounded-lg "
               >
-                {item.name}
-              </span>
+                <span className="font-bold text-xl  border-b border-red-400 mt-2">
+                  {item.name}
+                </span>
+                <span className="font-bold mt-6">{item.stat}</span>
+              </div>
             </Link>
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
