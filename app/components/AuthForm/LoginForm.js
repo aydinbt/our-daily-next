@@ -20,7 +20,6 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
-import { useRouter } from "next/navigation";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const container = {
@@ -44,7 +43,6 @@ const item = {
 };
 
 const LoginForm = () => {
-  const { push } = useRouter();
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);

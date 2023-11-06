@@ -26,3 +26,9 @@ export async function POST(request) {
     return NextResponse.json({ message: error }, { status: 500 });
   }
 }
+export async function DELETE(request) {
+  const id = request.nextUrl.searchParams.get("id");
+  await connectMongoDB();
+  await Category.findByIdAndDelete(id);
+  return NextResponse.json({ message: "Silindi" }, { status: 200 });
+}

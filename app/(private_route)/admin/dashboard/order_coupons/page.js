@@ -1,7 +1,7 @@
 "use client";
 import { getCoupons } from "@/app/redux/couponSlice";
 import { Button, IconButton } from "@chakra-ui/react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { BiTrash } from "react-icons/bi";
 import { HiOutlineTicket } from "react-icons/hi";
@@ -9,6 +9,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import { RiEditFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 const Order_Coupons = () => {
+  const router = useRouter();
   const dispath = useDispatch();
   const { coupon } = useSelector((state) => state.coupon);
   useEffect(() => {
@@ -18,12 +19,12 @@ const Order_Coupons = () => {
     <div className="container mx-auto overflow-hidden">
       <div className="grid md:grid-cols-1">
         <div className="py-12 px-12 shadow-lg rounded-lg">
-          <Link href="/admin/dashboard">
-            <IconButton
-              className="mb-4"
-              icon={<IoMdArrowBack size={30} color="red" />}
-            />
-          </Link>
+          <IconButton
+            onClick={() => router.back()}
+            className="mb-4"
+            icon={<IoMdArrowBack size={30} color="red" />}
+          />
+
           <div className="flex flex-row justify-between items-center space-x-6 ">
             <span className="font-bold text-2xl border-b-2">Kuponlar</span>
             <div className="items-center justify-center flex flex-row gap-4">
@@ -35,7 +36,7 @@ const Order_Coupons = () => {
               </Button>
               <input
                 type="search"
-                className=" px-8 bg-slate-100 py-2 rounded-xl"
+                className=" px-8 bg-slate-100 py-2 rounded-xl border"
                 placeholder="Kupon Ara"
               />
             </div>
@@ -70,10 +71,8 @@ const Order_Coupons = () => {
                         {item.discountPercent}%
                       </td>
                       <div>
-                        <td className="px-6 py-4">
+                        <td className="px-6 py-4 space-x-6">
                           <IconButton icon={<RiEditFill />} />
-                        </td>
-                        <td className="px-6 py-4">
                           <IconButton
                             icon={<BiTrash size={25} color="red" />}
                           />
