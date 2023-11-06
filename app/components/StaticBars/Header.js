@@ -138,12 +138,12 @@ const Header = () => {
                     </MenuButton>
                     <MenuList className="shadow-2xl">
                       <MenuGroup title="Ayarlar">
-                        <Link href="/auth/profile">
+                        <Link href="/login">
                           <MenuItem icon={<IoMdLogIn size={25} />}>
                             Giriş Yap
                           </MenuItem>
                         </Link>
-                        <Link href="/order-tracking/all">
+                        <Link href="register">
                           <MenuItem icon={<BsPersonFillAdd size={25} />}>
                             Kayıt Ol
                           </MenuItem>
