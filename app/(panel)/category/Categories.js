@@ -7,7 +7,7 @@ import { FaChevronRight } from "react-icons/fa";
 import { BiDuplicate } from "react-icons/bi";
 const Categories = ({ setCat, setKeyword }) => {
   const dispatch = useDispatch();
-  const category = useSelector((state) => state.category.products);
+  const { category } = useSelector((state) => state.category);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const handleCategoryClick = (categoryId) => {
     setSelectedCategoryId(categoryId);

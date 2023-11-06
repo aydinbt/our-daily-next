@@ -20,7 +20,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.loading = false;
-      state.products = action.payload;
+      state.user = action.payload;
     });
   },
 });

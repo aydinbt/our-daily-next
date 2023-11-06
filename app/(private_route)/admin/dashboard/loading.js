@@ -7,8 +7,11 @@ const Loading = () => {
       <Skeleton active>
         <div className="grid md:grid-cols-3 py-4 px-4 mb-4 gap-8">
           <div className=" cursor-pointer flex flex-col items-center justify-center hover:bg-slate-100 hover:transition-all ease-in-out shadow-lg rounded-lg ">
-            <span className="font-bold text-xl  border-b border-red-400 mt-2"></span>
-            <span className="font-bold mt-6"></span>
+            <div className="flex flex-row items-center gap-2">
+              <span className="font-bold text-xl  border-b border-red-400 mt-2"></span>
+              <span>""</span>
+            </div>
+            <span className="font-bold mt-6">""</span>
           </div>
         </div>
       </Skeleton>

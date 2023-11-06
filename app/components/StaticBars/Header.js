@@ -98,9 +98,11 @@ const Header = () => {
                             Hesap Bilgileri
                           </MenuItem>
                         </Link>
-                        {session?.user?.role !== "admin" ? (
+                        {session?.user?.role === "admin" ? (
                           <Link href="/admin/dashboard">
-                            <MenuItem icon={<BiSolidDashboard size={20} color="red"/>}>
+                            <MenuItem
+                              icon={<BiSolidDashboard size={20} color="red" />}
+                            >
                               Dashboard
                             </MenuItem>
                           </Link>

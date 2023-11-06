@@ -20,7 +20,7 @@ export const categorySlice = createSlice({
     });
     builder.addCase(getCategory.fulfilled, (state, action) => {
       state.loading = false;
-      state.products = action.payload;
+      state.category = action.payload;
     });
   },
 });
